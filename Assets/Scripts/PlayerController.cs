@@ -84,12 +84,14 @@ public class PlayerController : MonoBehaviour
     }
 
     //function to collect sea items with the net
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        foreach (SeaItem seaItem in _seaItems)
+        SeaItem seaItem = other.GetComponent<SeaItem>();
+        if (seaItem != null)
         {
-            //add to score
-            //destroy the item
+            //add points
+            //score += seaItem.points;
+            //destroy the seaitem
             Debug.Log("item collected");
         }
     }
