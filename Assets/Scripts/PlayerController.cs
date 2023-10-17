@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
-    private int _playerSpeed = 5;           // Player/fishing-net speed
-    [SerializeField] private Transform _net; // Reference to nets transform, make sure its the actual basket
-    private bool _isCasting = false;        // Check if the net is being casted, set to false by default in start/ each round?
+    private int _playerSpeed = 5;                       // Player/fishing-net speed
+    [SerializeField] private Transform _net;            // Reference to nets transform, make sure its the actual basket
+    private bool _isCasting = false;                    // Check if the net is being casted, set to false by default in start/ each round?
+    [SerializeField] private Collider2D _netCollider;   // The nets collider
 
-    [SerializeField] private Transform _topOfWater; // Reference to WaterTop object's transform
+    [SerializeField] private Transform _topOfWater;     // Reference to WaterTop object's transform
     
-    [SerializeField] Camera _mainCamera; // Refence to Main Camera GameObject
-    //private bool _cameraMove = true; // Check if Camera can move, this might be redundant
-    [SerializeField] float _followSpeed = 5f; // How fast the camera follows the player
+    [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
+    //private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
+    [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
+
+    [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level  
     
+
     // Score
 
     // Update is called once per frame
@@ -76,18 +81,18 @@ public class PlayerController : MonoBehaviour
             //trigger the transition to jetty view
         }
 
-        //function to collect sea items with the net
-            
-            // Check if its a sea item/ iterate through all sea items in the level
-
-                // Check if the item is inside the nets collider 
-
-                    // add to score
-
-                    // destroy the collected item from the scene 
     }
 
-
+    //function to collect sea items with the net
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        foreach (SeaItem seaItem in _seaItems)
+        {
+            //add to score
+            //destroy the item
+            Debug.Log("item collected");
+        }
+    }
 }
 
 
