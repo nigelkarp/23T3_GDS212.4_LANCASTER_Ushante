@@ -33,17 +33,21 @@ public class PlayerController : MonoBehaviour
     // A function to move the net
     void MoveNet()
     {
-        // Calculate the new postion for the net, based on what is inputed
+        // Get input for net movement
         float _inputX = Input.GetAxis("Horizontal"); //input 1
         float _inputY = Input.GetAxis("Vertical");  //input 2
 
-        // Move the net to the new position
+        // Calculate the new postion for the net, based on what is inputed
         Vector3 newPositon = net.transform.position + new Vector3(_inputX, _inputY, 0) * _playerSpeed * Time.deltaTime;
 
+        // Move the net to the new position
+        net.position = newPositon;
+
     //check if the net has reached the top, use an object or collider transform
+
     }
-        
-    
+
+
 }
 
 
