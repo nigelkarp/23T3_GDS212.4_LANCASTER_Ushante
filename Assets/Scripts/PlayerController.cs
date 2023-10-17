@@ -10,13 +10,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _net; // Reference to nets transform, make sure its the actual basket
     private bool _isCasting = false;        // Check if the net is being casted, set to false by default in start/ each round?
 
-    [SerializeField] private Transform _topOfWater;
-
+    [SerializeField] private Transform _topOfWater; // Reference to WaterTop object's transform
+    
+    [SerializeField] Camera _mainCamera; // Refence to Main Camera GameObject
+    //private bool _cameraMove = true; // Check if Camera can move, this might be redundant
+    [SerializeField] float _followSpeed = 5f; // How fast the camera follows the player
+    
     // Score
 
     // Update is called once per frame
     void Update()
     {
+        // Getting the players y positon
+        float _playerY = _net.position.y;
+
+        // Get the cameras current pos
+        Vector3 _cameraPos = _mainCamera.transform.position;
+
+        // Set the cameras new position based on the players Y position >> reference chat gpt for this
+        _cameraPos.y = Mathf.Lerp(_cameraPos.y, _playerY, _followSpeed * Time.deltaTime);
+
+        // Apply the new camera positon
+        _mainCamera.transform.position = _cameraPos;
+
         //Check if net is casted
         if (_isCasting)
         {
@@ -45,6 +61,7 @@ public class PlayerController : MonoBehaviour
         // Assign top of screen position
         float _topOfScreen = _topOfWater.position.y;
 
+
         // Calculate the new postion for the net, based on what is inputed
         Vector3 newPositon = _net.transform.position + new Vector3(_inputX, _inputY, 0) * _playerSpeed * Time.deltaTime;
 
@@ -55,6 +72,7 @@ public class PlayerController : MonoBehaviour
         if (_net.transform.position.y >= _topOfScreen)
         {
             _isCasting = false;
+            //stop camera movement
             //trigger the transition to jetty view
         }
     }

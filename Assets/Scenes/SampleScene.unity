@@ -678,3 +678,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _net: {fileID: 2851931468524386743}
   _topOfWater: {fileID: 1268512848}
+  _mainCamera: {fileID: 519420031}
+  _followSpeed: 1
