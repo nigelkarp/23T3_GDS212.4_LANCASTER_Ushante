@@ -75,6 +75,16 @@ public class PlayerController : MonoBehaviour
             //stop camera movement
             //trigger the transition to jetty view
         }
+
+        //function to collect sea items with the net
+            
+            // Check if its a sea item/ iterate through all sea items in the level
+
+                // Check if the item is inside the nets collider 
+
+                    // add to score
+
+                    // destroy the collected item from the scene 
     }
 
 
