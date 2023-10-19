@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         SeaItem seaItem = other.GetComponent<SeaItem>();
+
         if (seaItem != null)
         {
             //call collect item function from itemcollection script/ manager

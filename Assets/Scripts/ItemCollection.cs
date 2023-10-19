@@ -24,16 +24,14 @@ public class ItemCollection : MonoBehaviour
             //display the score in debug console
             Debug.Log(_score);
 
-            //call update  UI function
+            return;
         }
-
     }
 
-    // Function to display score and collected item on the UI 
-    // Update the score display on the screen
-
-    // Update the collected items displayed on the screen
-
-    // Update the UI to reflect the current score and sollected items
+    // Function to return current score
+    public int ReturnCurrentScore()
+    {
+        return _score;
+    }
 
 }
