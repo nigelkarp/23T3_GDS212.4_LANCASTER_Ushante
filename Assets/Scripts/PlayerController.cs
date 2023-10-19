@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour
     private bool _canCast = true;                       // can the player press the spacebar
     private bool _isUnderwater = false;                 // sets the active camera
 
+    [SerializeField] private TMP_Text _spaceText;      //reference to the spacebar UI text above water
+
     [SerializeField] private float _castTime = 10.0f; 
-    //[SerializeField] private float _castSpeed = 2.0f;
 
     [SerializeField] private Collider2D _netCollider;   // The nets collider
 
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
         //Turn off the top of water/ top out of bounds by default
         _topOfWater.gameObject.SetActive(false);
 
-        
+        _spaceText.enabled = true;
     }
 
     // Update is called once per frame
@@ -81,6 +82,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !_isCasting && _canCast)
         {
+            //disable tutorial text
+            _spaceText.enabled = false;
+
             //swap cameras
             _isUnderwater = true;
 
@@ -196,6 +200,8 @@ public class PlayerController : MonoBehaviour
 
             // Clear items stored within the collected Items list
             _itemCollectionManager.GetComponent<ItemCollection>().ClearCollectedItems();
+
+            _spaceText.enabled = true;
         }
         else if (other.CompareTag("Fish") && _itemsInteractable)
         {
