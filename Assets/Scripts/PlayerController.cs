@@ -81,14 +81,6 @@ public class PlayerController : MonoBehaviour
         // Move the net to the new position
         _net.position = newPositon;
 
-        //check if the net has reached the top, use an object or collider transform
-        if (_net.transform.position.y >= _topOfScreen)
-        {
-            _isCasting = false;
-            //stop camera movement
-            //trigger the transition to jetty view
-        }
-
     }
 
     //function to collect sea items with the net
@@ -107,6 +99,13 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("item collected");
             }
         }
+        else if (other.CompareTag("WaterTop"))
+        {
+            //Stopping movement once the net/ player has reached the top of the screen
+            _isCasting = false;
+
+            //either add function or add functionality so that camera switches, have to press space... etc.
+        }
         
     }
 
@@ -114,7 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("CameraStopZone"))
         {
-            Debug.Log("Camera stop zone hit");
+            //Debug.Log("Camera stop zone hit");
+
+            //Stop the camera from moving once its entered the stop zone trigger
+            _cameraMove = false;
         }
     }
 
@@ -123,9 +125,11 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("CameraStopZone"))
         {
             Debug.Log("Camera stop zone left");
+
+            //Start the camera movement once its entered the stop zone trigger
+            _cameraMove = true;
         }
     }
-
 
 }
 

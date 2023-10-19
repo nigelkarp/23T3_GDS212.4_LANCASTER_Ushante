@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SeaItem
   - CameraStopZone
+  - WaterTop
   layers:
   - Default
   - TransparentFX
