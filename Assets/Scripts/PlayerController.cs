@@ -19,9 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
 
     [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level  
-    
-
-    // Score
 
     // Update is called once per frame
     void Update()
@@ -89,8 +86,7 @@ public class PlayerController : MonoBehaviour
         SeaItem seaItem = other.GetComponent<SeaItem>();
         if (seaItem != null)
         {
-            //add points
-            //score += seaItem.points;
+            //call function from itemcollection
             //destroy the seaitem
             Debug.Log("item collected");
         }
