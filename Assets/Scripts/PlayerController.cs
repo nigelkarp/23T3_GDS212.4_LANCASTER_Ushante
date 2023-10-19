@@ -191,6 +191,11 @@ public class PlayerController : MonoBehaviour
             //update and display the score
             _UIScoreManager.GetComponent<Scoring>().UpdateScoreUI(); 
         }
+        else if (other.CompareTag("Fish"))
+        {
+            //calls function that resets score
+            _itemCollectionManager.GetComponent<ItemCollection>().ResetCurrentScore();
+        }
         
     }
 

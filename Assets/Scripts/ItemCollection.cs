@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemCollection : MonoBehaviour
@@ -28,10 +29,36 @@ public class ItemCollection : MonoBehaviour
         }
     }
 
+    // Function to reset current score
+    public void ResetCurrentScore()
+    {
+        // Check if there are items within collect item list
+        if (collectedItems.Count > 0)
+        {
+            //set all items within collected items as active again
+            // probably have to do a for each
+
+           foreach (SeaItem item in collectedItems)
+            {
+                Debug.Log(item);
+            }
+
+            // only remove from score the amount of collected items (so basically nothing is added)
+            _score -= collectedItems.Count;
+            Debug.Log(_score);
+
+            collectedItems.Clear();
+            Debug.Log(_score);
+        }
+        else
+        {
+            Debug.Log(collectedItems.Count);
+        }
+    }
+
     // Function to return current score
     public int ReturnCurrentScore()
     {
         return _score;
     }
-
 }

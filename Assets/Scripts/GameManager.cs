@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Timer _timer;             //reference to the timer game object
     [SerializeField] private TMP_Text _timerText;      //reference to the timer UI
 
+    // Reference to fish game objects
+
     private void Start()
     {
         _timer.StartTimer(30f, GameEnd);
