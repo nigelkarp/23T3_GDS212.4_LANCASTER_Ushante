@@ -7,16 +7,21 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
-    private int _playerSpeed = 5;                       // Player/fishing-net speed
-    [SerializeField] private Transform _net;            // Reference to nets transform, make sure its the actual basket
     private bool _isCasting = false;                    // Check if the net is being casted, set to false by default in start/ each round?
+    private int _playerSpeed = 5;                       // Player/fishing-net speed
+
     [SerializeField] private Collider2D _netCollider;   // The nets collider
 
+    [SerializeField] private Transform _net;            // Reference to nets transform, make sure its the actual basket
     [SerializeField] private Transform _topOfWater;     // Reference to WaterTop object's transform
+
+    [SerializeField] private Transform _seaBedPos;      // Reference to SeaBedPos objects transform
+    [SerializeField] private Transform _aboveWaterPos;  // Reference to AboveWaterPos objects transform
+    [SerializeField] private Transform _cameraStop;     // Reference to CameraStopPos obj transform/ where the cam shoudld stop
     
     [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
-    //private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
+    private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
 
     [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level
 
@@ -25,17 +30,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Getting the players y positon
-        float _playerY = _net.position.y;
+        //Check if the camera can move
+        if (_cameraMove)
+        {
+            // Getting the players y positon
+            float _playerY = _net.position.y;
 
-        // Get the cameras current pos
-        Vector3 _cameraPos = _mainCamera.transform.position;
+            // Get the cameras current pos
+            Vector3 _cameraPos = _mainCamera.transform.position;
 
-        // Set the cameras new position based on the players Y position >> reference chat gpt for this
-        _cameraPos.y = Mathf.Lerp(_cameraPos.y, _playerY, _followSpeed * Time.deltaTime);
+            // Set the cameras new position based on the players Y position >> reference chat gpt for this
+            _cameraPos.y = Mathf.Lerp(_cameraPos.y, _playerY, _followSpeed * Time.deltaTime);
 
-        // Apply the new camera positon
-        _mainCamera.transform.position = _cameraPos;
+            // Apply the new camera positon
+            _mainCamera.transform.position = _cameraPos;
+        }
 
         //Check if net is casted
         if (_isCasting)
