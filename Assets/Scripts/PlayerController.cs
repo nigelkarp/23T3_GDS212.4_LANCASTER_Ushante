@@ -53,15 +53,7 @@ public class PlayerController : MonoBehaviour
             MoveNet();
         }
 
-        //Check if input has been made to cast the net
-        //if button is being pressed & casting isnt set to true
-        //eventually make it so the camera needs to be on the jetty view
-        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
-        {
-            _isCasting = true;  //set casting to true
-        }
-
-        //Update the UI to display the score
+        CastNet();
     }
 
     // A function to move the net
@@ -81,6 +73,19 @@ public class PlayerController : MonoBehaviour
         // Move the net to the new position
         _net.position = newPositon;
 
+    }
+
+    // Function to 'cast' the net
+    void CastNet()
+    {
+        //Check if input has been made to cast the net
+        //if button is being pressed & casting isnt set to true
+        //eventually make it so the camera needs to be on the jetty view
+        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
+        {
+            //move net from top (AboveWaterPos position) of screen to bottom (SeaBedPos positon)
+            //_isCasting = true;  //then set casting to true
+        }
     }
 
     //function to collect sea items with the net
