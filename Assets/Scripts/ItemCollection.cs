@@ -58,4 +58,11 @@ public class ItemCollection : MonoBehaviour
     {
         return _score;
     }
+
+    // Function purely to clear collected items
+    public void ClearCollectedItems()
+    {
+        collectedItems.Clear();
+        Debug.Log(collectedItems.Count);
+    }
 }

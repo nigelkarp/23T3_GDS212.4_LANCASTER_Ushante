@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //function to collect sea items with the net
+    // Function to collect sea items with the net
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("SeaItem") && _itemsInteractable)
@@ -171,32 +171,35 @@ public class PlayerController : MonoBehaviour
 
             if (seaItem != null)
             {
-                //call collect item function from itemcollection script/ manager
+                // Call collect item function from itemcollection script/ manager
                 _itemCollectionManager.GetComponent<ItemCollection>().CollectItem(seaItem);
 
                 Debug.Log("item collected");
 
-                //destroy the seaitem
+                // Destroy the seaitem
                 seaItem.gameObject.SetActive(false);
             }
         }
         else if (other.CompareTag("WaterTop"))
         {
-            //Stopping movement once the net/ player has reached the top of the screen
+            // Stopping movement once the net/ player has reached the top of the screen
             _isMoveable = false;
 
-            //switch the camera, the space bar is enabled with the enabling of the camera
+            // Switch the camera, the space bar is enabled with the enabling of the camera
             _isUnderwater = false;
 
-            //update and display the score
+            // Update and display the score
             _UIScoreManager.GetComponent<Scoring>().UpdateScoreUI();
             
-            //set items to uninteractable
+            // Set items to uninteractable
             _itemsInteractable = false;
+
+            // Clear items stored within the collected Items list
+            _itemCollectionManager.GetComponent<ItemCollection>().ClearCollectedItems();
         }
         else if (other.CompareTag("Fish") && _itemsInteractable)
         {
-            //calls function that resets score
+            // Calls function that resets score
             _itemCollectionManager.GetComponent<ItemCollection>().ResetCurrentScore();
         }
         
