@@ -22,6 +22,9 @@ public class ItemCollection : MonoBehaviour
             _score += seaItem.GetItemValue();
 
             //call update  UI function
+
+            //display the score in debug console
+            Debug.Log(_score);
         }
 
     }
