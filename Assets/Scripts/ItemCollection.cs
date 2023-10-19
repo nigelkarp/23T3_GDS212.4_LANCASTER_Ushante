@@ -21,10 +21,10 @@ public class ItemCollection : MonoBehaviour
             // Need to create a function to return this value in seaitem class
             _score += seaItem.GetItemValue();
 
-            //call update  UI function
-
             //display the score in debug console
             Debug.Log(_score);
+
+            //call update  UI function
         }
 
     }

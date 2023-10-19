@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
     //private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
 
-    [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level  
+    [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level
+
+    [SerializeField] private GameObject _itemCollectionManager; // Item manager game object w/ management script
 
     // Update is called once per frame
     void Update()
@@ -86,7 +88,9 @@ public class PlayerController : MonoBehaviour
         SeaItem seaItem = other.GetComponent<SeaItem>();
         if (seaItem != null)
         {
-            //call function from itemcollection
+            //call collect item function from itemcollection script/ manager
+            _itemCollectionManager.GetComponent<ItemCollection>().CollectItem(seaItem);
+            
             //destroy the seaitem
             Debug.Log("item collected");
         }
