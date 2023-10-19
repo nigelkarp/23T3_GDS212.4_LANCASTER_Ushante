@@ -107,12 +107,25 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("item collected");
             }
         }
-        else if (other.CompareTag("CameraStopZone"))
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("CameraStopZone"))
         {
             Debug.Log("Camera stop zone hit");
         }
-        
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("CameraStopZone"))
+        {
+            Debug.Log("Camera stop zone left");
+        }
+    }
+
 
 }
 
