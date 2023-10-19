@@ -12,10 +12,10 @@ public class Scoring : MonoBehaviour
     [SerializeField] private GameObject _itemCollectionManager; // Item manager game object w/ management script
 
     //temporary update function until the updatescoreUI function is utalised everytime the player reaches the top of the water
-    private void Update()
-    {
-        UpdateScoreUI();
-    }
+    //private void Update()
+    //{
+    //    UpdateScoreUI();
+    //}
 
     // Function to display score and collected item on the UI 
     public void UpdateScoreUI()

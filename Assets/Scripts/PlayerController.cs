@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level
 
     [SerializeField] private GameObject _itemCollectionManager; // Item manager game object w/ management script
+    [SerializeField] private GameObject _UIScoreManager;        // Score manager game object w/ scoring script
 
     private void Start()
     {
@@ -173,8 +174,10 @@ public class PlayerController : MonoBehaviour
                 //call collect item function from itemcollection script/ manager
                 _itemCollectionManager.GetComponent<ItemCollection>().CollectItem(seaItem);
 
-                //destroy the seaitem
                 Debug.Log("item collected");
+
+                //destroy the seaitem
+                seaItem.gameObject.SetActive(false);
             }
         }
         else if (other.CompareTag("WaterTop"))
@@ -184,6 +187,9 @@ public class PlayerController : MonoBehaviour
 
             //switch the camera, the space bar is enabled with the enabling of the camera
             _isUnderwater = false;
+
+            //update and display the score
+            _UIScoreManager.GetComponent<Scoring>().UpdateScoreUI(); 
         }
         
     }

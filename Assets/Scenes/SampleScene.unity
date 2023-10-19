@@ -725,6 +725,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &907875299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8991034296942456057, guid: 18947493cc68d114ea569de07ffe688e, type: 3}
+  m_PrefabInstance: {fileID: 8991034295668436366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &911914982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73148c047572095489e6c0dbf1cb4b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _castTime: 5
+  _castTime: 3
   _netCollider: {fileID: 2851931468524386746}
   _net: {fileID: 2851931468524386743}
   _topOfWater: {fileID: 1268512847}
@@ -1597,6 +1602,7 @@ MonoBehaviour:
   - {fileID: 2103202593785935511}
   - {fileID: 1762164534}
   _itemCollectionManager: {fileID: 1496761759}
+  _UIScoreManager: {fileID: 907875299}
 --- !u!61 &2851931468524386746
 BoxCollider2D:
   m_ObjectHideFlags: 0
