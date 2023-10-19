@@ -7,17 +7,24 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Timer _timer;             //reference to the timer game object
     [SerializeField] private TMP_Text _timerText;      //reference to the timer UI
+    [SerializeField] private GameObject _itemCollectionManager;
+
+    [SerializeField] private GameObject winWindow;      //reference to win window
+    [SerializeField] private GameObject loseWindow;      //reference to lose window
 
     // Reference to fish game objects
 
     private void Start()
     {
         _timer.StartTimer(30f, GameEnd);
+        winWindow.SetActive(false);
+        loseWindow.SetActive(false);
     }
 
     private void Update()
     {
         UpdateTimerUI();
+        GameEnd();
     }
 
     // Function to append time to timer text
@@ -40,6 +47,15 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd()
     {
-        Debug.Log("Game ended");
+        int currentScore = _itemCollectionManager.GetComponent<ItemCollection>().ReturnCurrentScore();
+
+        if (!_timer.isRunning && currentScore < 10)
+        {
+            loseWindow?.SetActive(true);
+        }
+        else if (currentScore >= 10)
+        {
+            winWindow.SetActive(true);
+        }
     }
 }

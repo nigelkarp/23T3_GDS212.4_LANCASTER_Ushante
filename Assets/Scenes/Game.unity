@@ -251,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &131618824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1448,6 +1448,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timer: {fileID: 354627798}
   _timerText: {fileID: 1384697065}
+  _itemCollectionManager: {fileID: 1496761759}
+  winWindow: {fileID: 1786732422}
+  loseWindow: {fileID: 131618823}
 --- !u!1 &1176036803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,7 +1998,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Loser! \nPress to Restart."
+  m_text: "Oh no! \nPress to Restart."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2265,7 +2268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Winner! \nPress to Restart."
+  m_text: "Good catch! \nPress to Restart."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2622,7 +2625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1786732423
 RectTransform:
   m_ObjectHideFlags: 0
