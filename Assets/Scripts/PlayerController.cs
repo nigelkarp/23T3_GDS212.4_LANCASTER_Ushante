@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform _seaBedPos;      // Reference to SeaBedPos objects transform
     [SerializeField] private Transform _aboveWaterPos;  // Reference to AboveWaterPos objects transform
-    [SerializeField] private Transform _cameraStop;     // Reference to CameraStopPos obj transform/ where the cam shoudld stop
     
     [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
@@ -105,6 +104,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("item collected");
         }
     }
+
+
 }
 
 
