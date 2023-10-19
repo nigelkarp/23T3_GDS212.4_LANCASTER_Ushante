@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private int _playerSpeed = 5;                       // Player/fishing-net speed
     private float _castTimer;     
     private bool _isMoveable = false;
+    private bool _itemsInteractable = false;            // Cant interact with items
 
     [SerializeField] private float _castTime = 10.0f; 
     //[SerializeField] private float _castSpeed = 2.0f;
@@ -23,8 +24,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform _aboveWaterPos;  // Reference to AboveWaterPos objects transform
     [SerializeField] private Transform _seaBedPos;      // Reference to SeaBedPos objects transform
-    
-    [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
+
+    [SerializeField] Camera _CameraUp;                  // Reference to the Top camera GameObject
+    [SerializeField] Camera _CameraDown;                // Refence to Bottom Camera GameObject
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
 
     private bool _cameraMove = true;                    // Check if Camera can move, this might be redundant
@@ -37,6 +39,10 @@ public class PlayerController : MonoBehaviour
     {
         //Turn off the top of water/ top out of bounds by default
         _topOfWater.gameObject.SetActive(false);
+
+        //set the top camera on & bottom off by default
+        _CameraUp.enabled = true;
+        _CameraDown.enabled = false;
     }
 
     // Update is called once per frame
@@ -49,13 +55,13 @@ public class PlayerController : MonoBehaviour
             float _playerY = _net.position.y;
 
             // Get the cameras current pos
-            Vector3 _cameraPos = _mainCamera.transform.position;
+            Vector3 _cameraPos = _CameraDown.transform.position;
 
             // Set the cameras new position based on the players Y position >> reference chat gpt for this
             _cameraPos.y = Mathf.Lerp(_cameraPos.y, _playerY, _followSpeed * Time.deltaTime);
 
             // Apply the new camera positon
-            _mainCamera.transform.position = _cameraPos;
+            _CameraDown.transform.position = _cameraPos;
         }
 
         // Check if net is casted
@@ -66,6 +72,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
         {
+            //swap cameras
+            _CameraDown.enabled = true;
+            _CameraUp.enabled = false;
+
             _isCasting = true;
             _castTimer = 0f;
         }
@@ -118,6 +128,12 @@ public class PlayerController : MonoBehaviour
 
             //allow playermovement
             _isMoveable = true;
+
+            //allow items to be interactable
+            _itemsInteractable = true;
+
+            //set top out of bounds as active
+            _topOfWater.gameObject.SetActive(true);
         }
         
     }
@@ -125,7 +141,7 @@ public class PlayerController : MonoBehaviour
     //function to collect sea items with the net
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("SeaItem"))
+        if (other.CompareTag("SeaItem") && _itemsInteractable)
         {
             SeaItem seaItem = other.GetComponent<SeaItem>();
 
@@ -143,7 +159,7 @@ public class PlayerController : MonoBehaviour
             //Stopping movement once the net/ player has reached the top of the screen
             _isMoveable = false;
 
-            //either add function or add functionality so that camera switches, have to press space... etc.
+            //switch the camera
         }
         
     }
