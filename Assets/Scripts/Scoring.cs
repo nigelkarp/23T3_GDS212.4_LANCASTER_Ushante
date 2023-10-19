@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class Scoring : MonoBehaviour
 {

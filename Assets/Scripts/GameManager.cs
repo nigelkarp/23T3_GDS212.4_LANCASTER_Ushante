@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _timer.StartTimer(30f, GameEnd);
+        _timer.StartTimer(50f, GameEnd);
         winWindow.SetActive(false);
         loseWindow.SetActive(false);
     }
