@@ -317,6 +317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d73327322c01a4184cac8c5af6c73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeRemaining: 0
+  isRunning: 0
 --- !u!1 &379593531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d96ec475cbe76418f7412953ac80f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 354627798}
+  _timer: {fileID: 354627798}
+  _timerText: {fileID: 1384697065}
 --- !u!1 &1268512847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2708,6 +2711,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 439342669}
     m_Modifications:
+    - target: {fileID: 6793257233236790501, guid: 97bef7b08aa82e548b509f3b73f174e0, type: 3}
+      propertyPath: m_margin.z
+      value: 111.46227
+      objectReference: {fileID: 0}
     - target: {fileID: 6793257233236790501, guid: 97bef7b08aa82e548b509f3b73f174e0, type: 3}
       propertyPath: m_fontColor.b
       value: 0

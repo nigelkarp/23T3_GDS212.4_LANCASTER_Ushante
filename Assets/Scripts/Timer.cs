@@ -7,8 +7,8 @@ public class Timer : MonoBehaviour
 {
     //credit chat gpt for the start of this script
 
-    private float timeRemaining;
-    private bool isRunning = false;
+    public float timeRemaining;
+    public bool isRunning = false;
 
     private Action onTimerComplete;
 

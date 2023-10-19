@@ -5,17 +5,35 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Timer timer;             //reference to the timer game object
-    public TMP_Text timerText;      //reference to the timer UI
+    [SerializeField] private Timer _timer;             //reference to the timer game object
+    [SerializeField] private TMP_Text _timerText;      //reference to the timer UI
 
     private void Start()
     {
-        timer.StartTimer(30f, GameEnd);
+        _timer.StartTimer(30f, GameEnd);
     }
 
-    public void updateTimerUI()
+    private void Update()
     {
+        UpdateTimerUI();
+    }
 
+    // Function to append time to timer text
+    public void UpdateTimerUI()
+    {
+        // Check if the timer is running
+        if (_timer.isRunning)
+        {
+            // Get the time remaining from the Timer script
+            float timeRemaining = _timer.timeRemaining;
+
+            // Format the time as minutes and seconds
+            int minutes = Mathf.FloorToInt(timeRemaining / 60);
+            int seconds = Mathf.FloorToInt(timeRemaining % 60);
+
+            // Update the TMP Text component with the formatted time
+            _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     public void GameEnd()
