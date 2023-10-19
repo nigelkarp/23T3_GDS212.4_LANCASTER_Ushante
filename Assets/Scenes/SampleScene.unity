@@ -1383,9 +1383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _netCollider: {fileID: 2851931468524386746}
   _net: {fileID: 2851931468524386743}
-  _topOfWater: {fileID: 1268512848}
-  _seaBedPos: {fileID: 0}
-  _aboveWaterPos: {fileID: 0}
+  _topOfWater: {fileID: 1268512847}
+  _aboveWaterPos: {fileID: 9106729904829913097}
+  _seaBedPos: {fileID: 6031327445379948192}
   _mainCamera: {fileID: 519420031}
   _followSpeed: 3
   _seaItems:
@@ -1763,7 +1763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8600529508439398073}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5, z: 0}
+  m_LocalPosition: {x: 0, y: 6.353596, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

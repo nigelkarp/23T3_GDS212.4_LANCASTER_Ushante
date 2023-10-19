@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -9,23 +10,34 @@ public class PlayerController : MonoBehaviour
 {
     private bool _isCasting = false;                    // Check if the net is being casted, set to false by default in start/ each round?
     private int _playerSpeed = 5;                       // Player/fishing-net speed
+    private float _castTimer;     
+    private bool _isMoveable = false;
+
+    [SerializeField] private float _castTime = 10.0f; 
+    //[SerializeField] private float _castSpeed = 2.0f;
 
     [SerializeField] private Collider2D _netCollider;   // The nets collider
 
     [SerializeField] private Transform _net;            // Reference to nets transform, make sure its the actual basket
-    [SerializeField] private Transform _topOfWater;     // Reference to WaterTop object's transform
+    [SerializeField] private GameObject _topOfWater;     // Reference to WaterTop object
 
-    [SerializeField] private Transform _seaBedPos;      // Reference to SeaBedPos objects transform
     [SerializeField] private Transform _aboveWaterPos;  // Reference to AboveWaterPos objects transform
+    [SerializeField] private Transform _seaBedPos;      // Reference to SeaBedPos objects transform
     
     [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
 
-    private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
+    private bool _cameraMove = true;                    // Check if Camera can move, this might be redundant
 
     [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level
 
     [SerializeField] private GameObject _itemCollectionManager; // Item manager game object w/ management script
+
+    private void Start()
+    {
+        //Turn off the top of water/ top out of bounds by default
+        _topOfWater.gameObject.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -46,14 +58,23 @@ public class PlayerController : MonoBehaviour
             _mainCamera.transform.position = _cameraPos;
         }
 
-        //Check if net is casted
+        // Check if net is casted
         if (_isCasting)
         {
-            //move the net
-            MoveNet();
+            CastNet();
         }
 
-        CastNet();
+        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
+        {
+            _isCasting = true;
+            _castTimer = 0f;
+        }
+
+        // Check if player can move controller
+        if (_isMoveable)
+        {
+            MoveNet();
+        }
     }
 
     // A function to move the net
@@ -64,7 +85,7 @@ public class PlayerController : MonoBehaviour
         float _inputY = Input.GetAxis("Vertical");  //input 2
 
         // Assign top of screen position
-        float _topOfScreen = _topOfWater.position.y;
+        //float _topOfScreen = _topOfWater.transform.position.y;
 
 
         // Calculate the new postion for the net, based on what is inputed
@@ -72,20 +93,33 @@ public class PlayerController : MonoBehaviour
 
         // Move the net to the new position
         _net.position = newPositon;
-
     }
 
     // Function to 'cast' the net
     void CastNet()
     {
-        //Check if input has been made to cast the net
-        //if button is being pressed & casting isnt set to true
-        //eventually make it so the camera needs to be on the jetty view
-        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
+        _castTimer += Time.deltaTime;
+
+        if (_castTimer < _castTime)
         {
-            //move net from top (AboveWaterPos position) of screen to bottom (SeaBedPos positon)
-            //_isCasting = true;  //then set casting to true
+            // Calculate the current progress of the cast
+            float castProgress = _castTimer / _castTime;
+
+            // Move the player from the above water towards the seabed
+            Vector3 currentPosition = Vector3.Lerp(_aboveWaterPos.position, _seaBedPos.position, castProgress);
+            transform.position = new Vector3(currentPosition.x, currentPosition.y, transform.position.z);
         }
+        else
+        {
+            Debug.Log("cast finished");
+
+            // Cast finished
+            _isCasting = false;
+
+            //allow playermovement
+            _isMoveable = true;
+        }
+        
     }
 
     //function to collect sea items with the net
@@ -107,7 +141,7 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("WaterTop"))
         {
             //Stopping movement once the net/ player has reached the top of the screen
-            _isCasting = false;
+            _isMoveable = false;
 
             //either add function or add functionality so that camera switches, have to press space... etc.
         }
