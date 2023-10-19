@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float _castTimer;     
     private bool _isMoveable = false;
     private bool _itemsInteractable = false;            // Cant interact with items
+    private bool _canCast = true;                       // can the player press the spacebar
+    private bool _isUnderwater = false;                 // sets the active camera
 
     [SerializeField] private float _castTime = 10.0f; 
     //[SerializeField] private float _castSpeed = 2.0f;
@@ -40,14 +43,14 @@ public class PlayerController : MonoBehaviour
         //Turn off the top of water/ top out of bounds by default
         _topOfWater.gameObject.SetActive(false);
 
-        //set the top camera on & bottom off by default
-        _CameraUp.enabled = true;
-        _CameraDown.enabled = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        swapCameras();
+
         //Check if the camera can move
         if (_cameraMove)
         {
@@ -64,17 +67,21 @@ public class PlayerController : MonoBehaviour
             _CameraDown.transform.position = _cameraPos;
         }
 
+        if (!_isUnderwater) // change to the camera swapping variable
+        {
+            _canCast = true;
+        }
+
         // Check if net is casted
         if (_isCasting)
         {
             CastNet();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting)
+        if (Input.GetKeyDown(KeyCode.Space) && !_isCasting && _canCast)
         {
             //swap cameras
-            _CameraDown.enabled = true;
-            _CameraUp.enabled = false;
+            _isUnderwater = true;
 
             _isCasting = true;
             _castTimer = 0f;
@@ -93,10 +100,6 @@ public class PlayerController : MonoBehaviour
         // Get input for net movement
         float _inputX = Input.GetAxis("Horizontal"); //input 1
         float _inputY = Input.GetAxis("Vertical");  //input 2
-
-        // Assign top of screen position
-        //float _topOfScreen = _topOfWater.transform.position.y;
-
 
         // Calculate the new postion for the net, based on what is inputed
         Vector3 newPositon = _net.transform.position + new Vector3(_inputX, _inputY, 0) * _playerSpeed * Time.deltaTime;
@@ -123,6 +126,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("cast finished");
 
+            //  Dont let the player cast again
+            _canCast = false;
+
             // Cast finished
             _isCasting = false;
 
@@ -136,6 +142,23 @@ public class PlayerController : MonoBehaviour
             _topOfWater.gameObject.SetActive(true);
         }
         
+    }
+
+    //function to swap cameras
+    void swapCameras()
+    {
+        //if a value is true turn on up and turn off down
+        if (!_isUnderwater)
+        {
+            _CameraUp.enabled = true;
+            _CameraDown.enabled = false;
+        }
+        else         //if the value is false do the opposite
+        {
+            _CameraUp.enabled = false;
+            _CameraDown.enabled = true;
+        }
+
     }
 
     //function to collect sea items with the net
@@ -159,7 +182,8 @@ public class PlayerController : MonoBehaviour
             //Stopping movement once the net/ player has reached the top of the screen
             _isMoveable = false;
 
-            //switch the camera
+            //switch the camera, the space bar is enabled with the enabling of the camera
+            _isUnderwater = false;
         }
         
     }
