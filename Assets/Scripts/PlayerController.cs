@@ -189,9 +189,12 @@ public class PlayerController : MonoBehaviour
             _isUnderwater = false;
 
             //update and display the score
-            _UIScoreManager.GetComponent<Scoring>().UpdateScoreUI(); 
+            _UIScoreManager.GetComponent<Scoring>().UpdateScoreUI();
+            
+            //set items to uninteractable
+            _itemsInteractable = false;
         }
-        else if (other.CompareTag("Fish"))
+        else if (other.CompareTag("Fish") && _itemsInteractable)
         {
             //calls function that resets score
             _itemCollectionManager.GetComponent<ItemCollection>().ResetCurrentScore();

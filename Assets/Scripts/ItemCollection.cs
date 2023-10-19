@@ -35,6 +35,8 @@ public class ItemCollection : MonoBehaviour
         // Check if there are items within collect item list
         if (collectedItems.Count > 0)
         {
+            Debug.Log("Fish hit");
+
             //set all items within collected items as active again
             // probably have to do a for each
 
@@ -48,11 +50,6 @@ public class ItemCollection : MonoBehaviour
             Debug.Log(_score);
 
             collectedItems.Clear();
-            Debug.Log(_score);
-        }
-        else
-        {
-            Debug.Log(collectedItems.Count);
         }
     }
 
