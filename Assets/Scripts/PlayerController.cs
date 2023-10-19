@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] Camera _mainCamera;                // Refence to Main Camera GameObject
     [SerializeField] float _followSpeed = 5f;           // How fast the camera follows the player
+
     private bool _cameraMove = true;                  // Check if Camera can move, this might be redundant
 
     [SerializeField] private SeaItem[] _seaItems;       // Array of sea items in the level
@@ -93,18 +94,25 @@ public class PlayerController : MonoBehaviour
     //function to collect sea items with the net
     private void OnTriggerEnter2D(Collider2D other)
     {
-        SeaItem seaItem = other.GetComponent<SeaItem>();
-
-        if (seaItem != null)
+        if (other.CompareTag("SeaItem"))
         {
-            //call collect item function from itemcollection script/ manager
-            _itemCollectionManager.GetComponent<ItemCollection>().CollectItem(seaItem);
-            
-            //destroy the seaitem
-            Debug.Log("item collected");
-        }
-    }
+            SeaItem seaItem = other.GetComponent<SeaItem>();
 
+            if (seaItem != null)
+            {
+                //call collect item function from itemcollection script/ manager
+                _itemCollectionManager.GetComponent<ItemCollection>().CollectItem(seaItem);
+
+                //destroy the seaitem
+                Debug.Log("item collected");
+            }
+        }
+        else if (other.CompareTag("CameraStopZone"))
+        {
+            Debug.Log("Camera stop zone hit");
+        }
+        
+    }
 
 }
 
