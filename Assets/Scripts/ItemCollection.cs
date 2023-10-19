@@ -42,7 +42,7 @@ public class ItemCollection : MonoBehaviour
 
            foreach (SeaItem item in collectedItems)
             {
-                Debug.Log(item);
+                item.gameObject.SetActive(true);
             }
 
             // only remove from score the amount of collected items (so basically nothing is added)
